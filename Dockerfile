@@ -1,7 +1,7 @@
 
 ###################################
 #Build stage
-FROM golang:1.12-alpine3.10 AS build-env
+FROM pistacks/golang:1.12.9 AS build-env
 
 ARG GOPROXY
 ENV GOPROXY ${GOPROXY:-direct}
@@ -21,7 +21,7 @@ WORKDIR ${GOPATH}/src/code.gitea.io/gitea
 RUN if [ -n "${GITEA_VERSION}" ]; then git checkout "${GITEA_VERSION}"; fi \
  && make clean generate build
 
-FROM alpine:3.10
+FROM pistacks/alpine:3.10.1
 LABEL maintainer="maintainers@gitea.io"
 
 EXPOSE 22 3000
